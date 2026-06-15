@@ -17,7 +17,7 @@ public:
         if (root == NULL) {
             return;
         }
-        path = path + char(root->val + 'a');
+        path = char(root->val + 'a') + path;
         if (root->left == NULL && root->right == NULL) {
             ans.push_back(path);
             return;
@@ -29,9 +29,6 @@ public:
         string path = "";
         dfs(root, path);
 
-        for (int i = 0; i < ans.size(); i++) {
-            reverse(ans[i].begin(), ans[i].end());
-        }
         sort(ans.begin(), ans.end());
 
         return ans[0];
