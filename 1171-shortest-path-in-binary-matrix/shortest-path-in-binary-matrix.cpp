@@ -10,6 +10,7 @@ public:
 
         queue<pair<int, pair<int, int>>> q;
         q.push({1, {0, 0}});
+        grid[0][0] = 1;
 
         int row[] = {-1, -1, 0, 1, 1, 1, 0, -1};
         int col[] = {0, 1, 1, 1, 0, -1, -1, -1};
