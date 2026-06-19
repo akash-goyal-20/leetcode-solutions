@@ -12,9 +12,9 @@ public:
 
     int pop() {
         if (!st.empty()) {
-            int pop = st.top();
+            int x = st.top();
             st.pop();
-            return pop;
+            return x;
         }
         return -1;
     }
