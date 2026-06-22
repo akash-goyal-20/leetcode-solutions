@@ -1,45 +1,24 @@
 class Solution {
 public:
     vector<string> ans;
-    bool isValid(string s) {
-        stack<char> st;
 
-        for (auto it : s) {
-            if (it == '(') {
-                st.push(it);
-            } else {
-                if (st.empty())
-                    return false;
-                if (st.top() == '(' && it == ')') {
-                    st.pop();
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        if (st.empty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    void f(int n, string& s) {
-        if (n == 0) {
-            if (isValid(s)) {
-                ans.push_back(s);
-            }
-
+    void f(int curr, int n, string s, int closed, int open) {
+        if (curr == 2 * n) {
+            ans.push_back(s);
             return;
         }
-        string c1 = s + '(';
-        string c2 = s + ')';
-        f(n - 1, c1);
-        f(n - 1, c2);
+
+        if (open < n) {
+            f(curr + 1, n, s + '(', closed, open + 1);
+        }
+
+        if (open > closed) {
+            f(curr + 1, n, s + ')', closed + 1, open);
+        }
     }
+
     vector<string> generateParenthesis(int n) {
-        string s;
-        f(2 * n, s);
+        f(0, n, "", 0, 0);
         return ans;
     }
 };
