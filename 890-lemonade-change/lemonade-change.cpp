@@ -1,22 +1,25 @@
 class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
-        unordered_map<int, int> mp;
+        int five = 0;
+        int ten = 0;
 
         for (int i = 0; i < bills.size(); i++) {
-            mp[bills[i]]++;
-            if (bills[i] == 10) {
-                if (mp[5] == 0) {
+            if (bills[i] == 5) {
+                five++;
+            } else if (bills[i] == 10) {
+                ten++;
+                if (five == 0) {
                     return false;
                 } else {
-                    mp[5]--;
+                    five--;
                 }
-            } else if (bills[i] == 20) {
-                if (mp[10] >= 1 && mp[5] >= 1) {
-                    mp[10]--;
-                    mp[5]--;
-                } else if (mp[5] >= 3) {
-                    mp[5] = mp[5] - 3;
+            } else {
+                if (ten >= 1 && five >= 1) {
+                    ten--;
+                    five--;
+                } else if (five >= 3) {
+                    five = five - 3;
                 } else {
                     return false;
                 }
