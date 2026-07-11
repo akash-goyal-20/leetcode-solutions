@@ -27,8 +27,8 @@ public:
         }
         if (rank[ulp_u] > rank[ulp_v]) {
             parent[ulp_v] = ulp_u;
-        } else if (rank[ulp_u < rank[ulp_v]]) {
-            parent[ulp_v] = ulp_u;
+        } else if (rank[ulp_u] < rank[ulp_v]) {
+            parent[ulp_u] = ulp_v;
         } else {
             rank[ulp_u]++;
             parent[ulp_v] = ulp_u;
