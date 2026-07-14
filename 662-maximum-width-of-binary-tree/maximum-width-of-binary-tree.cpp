@@ -19,12 +19,11 @@ public:
         queue<pair<long long, TreeNode*>> q;
         q.push({1, root});
         long long maxDia = 0;
-        
 
         while (!q.empty()) {
             int size = q.size();
             long long left = 0;
-        long long right = 0;
+            long long right = 0;
             long long start = q.front().first;
 
             for (int i = 0; i < size; i++) {
@@ -40,10 +39,10 @@ public:
                 }
 
                 if (node->left != NULL) {
-                    q.push({index * 2, node->left});
+                    q.push({index * 2+1, node->left});
                 }
                 if (node->right != NULL) {
-                    q.push({index * 2 + 1, node->right});
+                    q.push({index * 2 + 2, node->right});
                 }
             }
             maxDia = max(maxDia, right - left + 1);
