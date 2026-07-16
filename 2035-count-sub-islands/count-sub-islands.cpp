@@ -16,11 +16,6 @@ public:
             int v = c + col[i];
 
             if (u >= 0 && u < m && v >= 0 && v < n && vis[u][v] == 0) {
-
-                if ((grid1[r][c] == 1 && grid2[r][c] == 1) &&
-                    (grid1[u][v] == 0 && grid2[u][v] == 1)) {
-                    flag = true;
-                }
                 if (grid2[u][v] == 1) {
                     dfs(u, v, grid1, grid2, vis, flag);
                 }
