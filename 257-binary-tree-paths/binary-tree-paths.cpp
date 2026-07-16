@@ -6,29 +6,31 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
     vector<string> ans;
-    void dfs(TreeNode* root, string path) {
-        if (root == NULL) {
+
+    void dfs(TreeNode* root,string path){
+        if(root == NULL){
             return;
         }
-        if (root->left == NULL && root->right == NULL) {
+        if(root->left == NULL && root->right==NULL){
             path = path + to_string(root->val);
             ans.push_back(path);
+            path.pop_back();
             return;
         }
         path = path + to_string(root->val) + "->";
-        dfs(root->left, path);
-        dfs(root->right, path);
+        dfs(root->left,path);
+        dfs(root->right,path);
+        path.pop_back();
     }
     vector<string> binaryTreePaths(TreeNode* root) {
-        string path = "";
-        dfs(root, path);
+        string path;
+        dfs(root,path);
         return ans;
     }
 };
