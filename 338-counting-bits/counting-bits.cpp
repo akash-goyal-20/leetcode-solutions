@@ -6,7 +6,6 @@ public:
         for(int i = 0; i <= n; i++){
             ans[i] = __builtin_popcount(i);
         }
-
         return ans;
     }
 };
