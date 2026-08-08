@@ -1,43 +1,33 @@
 class Solution {
 public:
-    int rightMax(int element, vector<int>& height) {
-        int n = height.size();
-        if (element == n - 1) {
-            return -1;
-        }
-        int maxi = height[element];
-        for (int i = element + 1; i < n; i++) {
-            maxi = max(maxi, height[i]);
-        }
-        if (maxi == height[element]) {
-            return -1;
-        }
-        return maxi;
-    }
-    int lefttMax(int element, vector<int>& height) {
-        int n = height.size();
-        if (element == 0) {
-            return -1;
-        }
-        int maxi = height[element];
-        for (int i = element - 1; i >= 0; i--) {
-            maxi = max(maxi, height[i]);
-        }
-        if (maxi == height[element]) {
-            return -1;
-        }
-        return maxi;
-    }
     int trap(vector<int>& height) {
+
         int n = height.size();
+
+        vector<int> leftMax(n);
+        vector<int> rightMax(n);
+
+        // Maximum height from left
+        leftMax[0] = height[0];
+
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = max(leftMax[i - 1], height[i]);
+        }
+
+        // Maximum height from right
+        rightMax[n - 1] = height[n - 1];
+
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = max(rightMax[i + 1], height[i]);
+        }
+
         int totalRain = 0;
+
         for (int i = 0; i < n; i++) {
-            if (rightMax(i, height) == -1 || lefttMax(i, height) == -1) {
-                continue;
-            }
-            int amount =
-                min(rightMax(i, height), lefttMax(i, height)) - height[i];
-            totalRain = totalRain + amount;
+
+            int amount = min(leftMax[i], rightMax[i]) - height[i];
+
+            totalRain += amount;
         }
 
         return totalRain;
