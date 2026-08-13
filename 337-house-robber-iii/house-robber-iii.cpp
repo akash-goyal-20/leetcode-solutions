@@ -1,32 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
+ * };
+ */
 class Solution {
 public:
-    vector<int> travel(TreeNode* root) {
-        // Base case
+    int f(TreeNode* root, unordered_map<TreeNode*, int>& dp) {
         if (root == NULL) {
-            return {0, 0};
+            return 0;
         }
+        if (dp.find(root) != dp.end()) {
+            return dp[root];
+        }
+        int take = root->val;
+        if (root->left) {
+            take = take + f(root->left->left, dp) + f(root->left->right, dp);
+        }
+        if (root->right) {
+            take = take + f(root->right->left, dp) + f(root->right->right, dp);
+        }
+        int skip = f(root->left, dp) + f(root->right, dp);
 
-        // Get choices from left and right subtrees
-        vector<int> left_node_choices = travel(root->left);
-        vector<int> right_node_choices = travel(root->right);
-
-        vector<int> options(2);
-
-        // options[0] = maximum money if we ROB this node
-        options[0] = root->val 
-                   + left_node_choices[1] 
-                   + right_node_choices[1];
-
-        // options[1] = maximum money if we SKIP this node
-        options[1] = max(left_node_choices[0], left_node_choices[1])
-                   + max(right_node_choices[0], right_node_choices[1]);
-
-        return options;
+        return dp[root] = max(take, skip);
     }
-
     int rob(TreeNode* root) {
-        vector<int> options = travel(root);
-
-        return max(options[0], options[1]);
+        unordered_map<TreeNode*, int> dp;
+        return f(root, dp);
     }
 };
