@@ -1,18 +1,15 @@
 class Solution {
 public:
-    bool solve(int i, int j, string s, string t) {
-        if (i == s.size()) {
-            return true;
-        }
-        if (j == t.size()) {
-            return false;
-        }
-        for (int k = j; k < t.size(); k++) {
-            if (s[i] == t[k]) {
-                return solve(i + 1, k + 1, s, t);
+    bool isSubsequence(string s, string t) {
+        int i = 0, j = 0;
+
+        while (i < s.size() && j < t.size()) {
+            if (s[i] == t[j]) {
+                i++;
             }
+            j++;
         }
-        return false;
+
+        return i == s.size();
     }
-    bool isSubsequence(string s, string t) { return solve(0, 0, s, t); }
 };
